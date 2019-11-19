@@ -1,2 +1,4 @@
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const CREATE_PROJECT_ERROR = 'CREATE_PROJECT_ERROR';
+export const GET_POSTS = 'GET_POSTS';
+export const GET_POSTS_ERROR = 'GET_POSTS_ERROR';

@@ -2,7 +2,9 @@ import axios from 'axios';
 
 import {
   CREATE_PROJECT,
-  CREATE_PROJECT_ERROR
+  CREATE_PROJECT_ERROR,
+  GET_POSTS,
+  GET_POSTS_ERROR
 } from './types';
 
 const url = 'https://asta-web-1.herokuapp.com/api';
@@ -20,8 +22,25 @@ export const createProject = (project) => {
       .then(() => {
         dispatch({type: CREATE_PROJECT, project});
       })
-      .catch((err) => {
+      .catch(err => {
         dispatch({type: CREATE_PROJECT_ERROR, err});
       });
   }
+};
+
+export const getPosts = () => dispatch => {
+  axios
+    .get(`${url}/projects`)
+    .then(res =>
+      dispatch({
+        type: GET_POSTS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POSTS_ERROR,
+        payload: null
+      })
+    );
 };
