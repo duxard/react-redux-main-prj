@@ -2,7 +2,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   SIGNOUT_SUCCESS,
-  SIGNOUT_ERROR
+  SIGNOUT_ERROR,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+  CLEAR_ERRORS_CACHE
 } from '../actions/types';
 
 const initState = {
@@ -29,18 +32,23 @@ const authReducer = (state = initState, action) => {
     case SIGNOUT_ERROR:
       console.log('SIGNOUT_ERROR');
       return state;
-    case 'SIGNUP_SUCCESS':
+    case SIGNUP_SUCCESS:
       console.log('SIGNUP_SUCCESS');
       return {
         ...state,
         authErr: null
       }
-    case 'SIGNUP_ERROR':
+    case SIGNUP_ERROR:
       console.log('SIGNUP_ERROR');
       return {
         ...state,
         authError: `Signup failed: ${action.err}`
       };
+    case CLEAR_ERRORS_CACHE:
+      return {
+        ...state,
+        authError: null
+      }
     default:
       return state;
   }

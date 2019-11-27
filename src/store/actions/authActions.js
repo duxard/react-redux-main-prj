@@ -3,7 +3,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   SIGNOUT_SUCCESS,
-  SIGNOUT_ERROR
+  SIGNOUT_ERROR,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+  CLEAR_ERRORS_CACHE
 } from './types';
 
 // export const signIn = (credentials) => {
@@ -61,15 +64,21 @@ export const signUp = (newUser) => {
         return firestore.collection('users').doc(res.user.uid).set({
           firstName: newUser.firstName,
           lastName: newUser.lastName,
-          initials: newUser.firstName[0] + newUser.lastName[0]
+          initials: `${newUser.firstName[0].toUpperCase()}${newUser.lastName[0].toUpperCase()}`
         });
       })
       .then((data) => {
         console.log(data);
-        dispatch({type: 'SIGNUP_SUCCESS'});
+        dispatch({type: SIGNUP_SUCCESS});
       })
       .catch((err) => {
-        dispatch({type: 'SIGNUP_ERROR', err});
+        dispatch({type: SIGNUP_ERROR, err});
       });
+  }
+}
+
+export const clearAuthErrorsCache = () => {
+  return (dispatch) => {
+    dispatch({type: CLEAR_ERRORS_CACHE});
   }
 }

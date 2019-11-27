@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/actions/authActions';
+import { signUp, clearAuthErrorsCache } from '../../store/actions/authActions';
 
 class SignUp extends Component {
   constructor() {
@@ -15,6 +15,10 @@ class SignUp extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillUnmount(){
+    this.props.clearAuthErrorsCache();
   }
 
   handleChange(e) {
@@ -75,7 +79,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signUp: (newUser) => dispatch(signUp(newUser))
+    signUp: (newUser) => dispatch(signUp(newUser)),
+    clearAuthErrorsCache: () => dispatch(clearAuthErrorsCache())
   }
 }
 

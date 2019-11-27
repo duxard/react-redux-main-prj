@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signIn } from '../../store/actions/authActions';
+import { signIn, clearAuthErrorsCache } from '../../store/actions/authActions';
 import { Redirect } from 'react-router-dom';
 
 class SignIn extends Component {
@@ -13,6 +13,10 @@ class SignIn extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillUnmount(){
+    this.props.clearAuthErrorsCache();
   }
 
   handleChange(e) {
@@ -67,7 +71,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (creds) => dispatch(signIn(creds))
+    signIn: (creds) => dispatch(signIn(creds)),
+    clearAuthErrorsCache: () => dispatch(clearAuthErrorsCache())
   }
 }
 
